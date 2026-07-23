@@ -1,0 +1,5 @@
+// Copy to Config/Local.xcconfig (gitignored) and set your own Team ID.
+// Find it with:  security find-identity -v -p codesigning
+// A free Apple ID's Personal Team works for local use; a paid Developer ID is
+// only needed to distribute notarized binaries.
+DEVELOPMENT_TEAM = YOUR_TEAM_ID

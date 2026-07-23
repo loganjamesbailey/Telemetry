@@ -1,0 +1,67 @@
+name: Telemetry
+
+options:
+  bundleIdPrefix: com.jamesbailey
+  deploymentTarget:
+    macOS: "15.0"
+  createIntermediateGroups: true
+  groupSortPosition: top
+
+configs:
+  Debug: debug
+  Release: release
+
+packages:
+  TelemetryCore:
+    path: Packages/TelemetryCore
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MACOSX_DEPLOYMENT_TARGET: "15.0"
+    ENABLE_HARDENED_RUNTIME: YES
+    CODE_SIGN_STYLE: Automatic
+    # DEVELOPMENT_TEAM comes from Config/Local.xcconfig (gitignored) so that
+    # anyone building from source signs with their own identity. App and helper
+    # must share one Apple-issued identity — never ad-hoc.
+  configs:
+    Debug:
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+      SWIFT_OPTIMIZATION_LEVEL: "-Onone"
+    Release:
+      SWIFT_OPTIMIZATION_LEVEL: "-O"
+
+targets:
+  Telemetry:
+    type: application
+    platform: macOS
+    sources:
+      - path: App
+    dependencies:
+      - package: TelemetryCore
+        product: SMCKit
+      - package: TelemetryCore
+        product: HIDSensors
+      - package: TelemetryCore
+        product: TelemetryShared
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.jamesbailey.telemetry
+        PRODUCT_NAME: Telemetry
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        INFOPLIST_KEY_NSHumanReadableCopyright: ""
+        COMBINE_HIDPI_IMAGES: YES
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleName: Telemetry
+        CFBundleDisplayName: Telemetry
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        CFBundlePackageType: APPL
+        # Accessory app: menu bar only, no Dock icon. The dashboard window
+        # flips the activation policy to .regular while it is open.
+        LSUIElement: true
+        LSMinimumSystemVersion: "$(MACOSX_DEPLOYMENT_TARGET)"
+        NSHighResolutionCapable: true
