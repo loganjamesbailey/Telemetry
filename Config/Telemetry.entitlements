@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- NOT sandboxed: AppleSMC IOKit access and the SMAppService daemon rule
+	     the App Sandbox out (and the Mac App Store with it). The app group
+	     exists solely to share the widget snapshot file. -->
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>$(TeamIdentifierPrefix)com.jamesbailey.telemetry</string>
+	</array>
+</dict>
+</plist>

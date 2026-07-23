@@ -70,7 +70,15 @@ final class SensorStore {
             fanRPM: snapshot.fans.first?.actualRPM,
             at: snapshot.timestamp
         )
+        widgetWriter.observe(
+            primaryName: primaryReading?.name,
+            primaryTempC: primary,
+            fanRPM: snapshot.fans.first?.actualRPM,
+            fanMode: snapshot.fans.first?.modeDescription
+        )
     }
+
+    private let widgetWriter = WidgetSnapshotWriter()
 
     // MARK: - Derived values for the UI
 

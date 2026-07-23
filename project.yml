@@ -36,6 +36,27 @@ settings:
       SWIFT_OPTIMIZATION_LEVEL: "-O"
 
 targets:
+  TelemetryWidget:
+    type: app-extension
+    platform: macOS
+    sources:
+      - path: Widget
+    dependencies:
+      - package: TelemetryCore
+        product: TelemetryShared
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.jamesbailey.telemetry.widget
+        PRODUCT_NAME: TelemetryWidget
+        CODE_SIGN_ENTITLEMENTS: Config/Widget.entitlements
+        SKIP_INSTALL: YES
+    info:
+      path: Widget/Info.plist
+      properties:
+        CFBundleDisplayName: Telemetry
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+
   TelemetryHelper:
     type: tool
     platform: macOS
@@ -67,6 +88,8 @@ targets:
     dependencies:
       - target: TelemetryHelper
         embed: false
+      - target: TelemetryWidget
+        embed: true
       - package: TelemetryCore
         product: SMCKit
       - package: TelemetryCore
@@ -96,6 +119,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.jamesbailey.telemetry
         PRODUCT_NAME: Telemetry
+        CODE_SIGN_ENTITLEMENTS: Config/Telemetry.entitlements
         MARKETING_VERSION: "0.1.0"
         CURRENT_PROJECT_VERSION: "1"
         INFOPLIST_KEY_NSHumanReadableCopyright: ""
