@@ -85,10 +85,10 @@ struct TelemetryWidgetView: View {
             }
 
             HStack(alignment: .firstTextBaseline, spacing: 3) {
-                Text(verbatim: String(format: "%.0f", s.primaryTempC))
+                Text(verbatim: s.unit.format(s.primaryTempC))
                     .font(.system(size: 30, weight: .light, design: .monospaced))
                     .foregroundStyle(WPalette.temp(scheme))
-                Text("°C")
+                Text(verbatim: s.unit.symbol)
                     .font(.system(size: 10))
                     .foregroundStyle(.tertiary)
             }

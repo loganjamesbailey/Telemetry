@@ -52,6 +52,7 @@ struct TelemetryApp: App {
         fanControl.temperatureProvider = { id in
             sensors.snapshot.reading(id)?.celsius
         }
+        fanControl.unitProvider = { sensors.unit }
     }
 }
 

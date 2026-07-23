@@ -69,8 +69,8 @@ struct DashboardWindow: View {
                     FieldLabel(text: store.primaryReading?.name ?? "No sensor")
                     if let temp = store.primaryTemperature {
                         Readout(
-                            value: String(format: "%.1f", temp),
-                            unit: "°C",
+                            value: store.unit.format(temp, decimals: 1),
+                            unit: store.unit.symbol,
                             font: Typo.heroReadout,
                             color: Palette.accentData,
                             glow: GlowLevel.steady

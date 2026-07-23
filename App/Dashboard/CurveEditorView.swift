@@ -11,6 +11,8 @@ struct CurveEditorView: View {
     let maxRPM: Double
     /// Live input temperature, drawn as a cursor so users see the curve act.
     let liveTempC: Double?
+    /// Display unit; geometry and stored points stay Celsius.
+    var unit: TemperatureUnit = .celsius
     /// Called when a drag gesture completes — the moment to persist/apply.
     let onCommit: () -> Void
 
@@ -69,11 +71,12 @@ struct CurveEditorView: View {
                 at: CGPoint(x: 4, y: y - 8), anchor: .leading
             )
         }
-        // Temperature ticks every 20 °C.
+        // Temperature ticks every 20 °C (labels shown in the display unit).
         for temp in stride(from: 40.0, through: 100, by: 20) {
             let x = xFor(temp: temp, size: size)
             context.draw(
-                Text(verbatim: "\(Int(temp))°").font(Typo.axisLabel).foregroundStyle(Palette.textTertiary),
+                Text(verbatim: "\(Int(unit.convert(temp)))°")
+                    .font(Typo.axisLabel).foregroundStyle(Palette.textTertiary),
                 at: CGPoint(x: x, y: size.height - 8), anchor: .center
             )
         }
@@ -153,7 +156,7 @@ struct CurveEditorView: View {
             with: .color(Palette.accentData)
         )
         context.draw(
-            Text(verbatim: String(format: "%.0f°", temp))
+            Text(verbatim: "\(unit.format(temp))°")
                 .font(Typo.axisLabel).foregroundStyle(Palette.accentData),
             at: CGPoint(x: x, y: size.height - 20), anchor: .center
         )
@@ -176,7 +179,7 @@ struct CurveEditorView: View {
             )
             if isSelected {
                 context.draw(
-                    Text(verbatim: "\(Int(cp.tempC))° · \(Int(cp.rpm))")
+                    Text(verbatim: "\(Int(unit.convert(cp.tempC)))° · \(Int(cp.rpm))")
                         .font(Typo.axisLabel).foregroundStyle(Palette.textSecondary),
                     at: CGPoint(x: p.x, y: max(p.y - 18, 10)), anchor: .center
                 )

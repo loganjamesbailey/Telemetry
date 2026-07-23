@@ -22,7 +22,7 @@ final class WidgetSnapshotWriter {
 
     func observe(
         primaryName: String?, primaryTempC: Double?,
-        fanRPM: Double?, fanMode: String?
+        fanRPM: Double?, fanMode: String?, unit: TemperatureUnit
     ) {
         guard let primaryTempC else { return }
         let now = Date()
@@ -49,7 +49,8 @@ final class WidgetSnapshotWriter {
             primaryTempC: primaryTempC,
             fanRPM: fanRPM ?? 0,
             fanModeDescription: fanMode ?? "—",
-            tempTrend: trend
+            tempTrend: trend,
+            unit: unit
         ))
 
         if bandChanged || modeChanged || now.timeIntervalSince(lastReload) >= reloadEvery {

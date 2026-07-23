@@ -15,10 +15,11 @@ struct HistoryTab: View {
 
             chartCard(
                 title: store.primaryReading?.name ?? "Temperature",
-                unit: "°C",
+                unit: store.unit.symbol,
                 series: .primaryTemp,
                 color: Palette.accentData,
-                domain: 20...110
+                domain: store.unit.convert(20)...store.unit.convert(110),
+                transform: { store.unit.convert($0) }
             )
             chartCard(
                 title: "Fan speed",
@@ -55,9 +56,12 @@ struct HistoryTab: View {
 
     private func chartCard(
         title: String, unit: String, series: HistoryStore.Series,
-        color: Color, domain: ClosedRange<Double>
+        color: Color, domain: ClosedRange<Double>,
+        transform: (Double) -> Double = { $0 }
     ) -> some View {
-        let samples = store.history.samples(series, range: range)
+        let samples = store.history.samples(series, range: range).map {
+            HistoryStore.Sample(time: $0.time, value: transform($0.value))
+        }
         return Card {
             VStack(alignment: .leading, spacing: Metrics.space8) {
                 HStack {

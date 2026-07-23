@@ -13,10 +13,13 @@ public struct WidgetSnapshot: Codable, Sendable {
     public var fanModeDescription: String
     /// Last ~30 minutes of the primary temperature, one point per minute.
     public var tempTrend: [Double]
+    /// Display unit chosen in the app; temperatures above remain Celsius.
+    public var unit: TemperatureUnit
 
     public init(
         timestamp: Date, primaryName: String, primaryTempC: Double,
-        fanRPM: Double, fanModeDescription: String, tempTrend: [Double]
+        fanRPM: Double, fanModeDescription: String, tempTrend: [Double],
+        unit: TemperatureUnit = .celsius
     ) {
         self.timestamp = timestamp
         self.primaryName = primaryName
@@ -24,6 +27,23 @@ public struct WidgetSnapshot: Codable, Sendable {
         self.fanRPM = fanRPM
         self.fanModeDescription = fanModeDescription
         self.tempTrend = tempTrend
+        self.unit = unit
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case timestamp, primaryName, primaryTempC, fanRPM, fanModeDescription, tempTrend, unit
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        timestamp = try c.decode(Date.self, forKey: .timestamp)
+        primaryName = try c.decode(String.self, forKey: .primaryName)
+        primaryTempC = try c.decode(Double.self, forKey: .primaryTempC)
+        fanRPM = try c.decode(Double.self, forKey: .fanRPM)
+        fanModeDescription = try c.decode(String.self, forKey: .fanModeDescription)
+        tempTrend = try c.decode([Double].self, forKey: .tempTrend)
+        // Tolerate snapshots written before the unit field existed.
+        unit = try c.decodeIfPresent(TemperatureUnit.self, forKey: .unit) ?? .celsius
     }
 
     /// Snapshots older than this render dimmed with an "app not running" hint.

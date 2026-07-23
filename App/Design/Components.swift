@@ -67,8 +67,11 @@ struct Card<Content: View>: View {
 }
 
 /// One sensor in the grid: name, value, and a state dot. The dot exists so
-/// state is never conveyed by colour alone.
+/// state is never conveyed by colour alone. Values arrive in Celsius (the
+/// app's internal unit) and convert at display time.
 struct SensorRow: View {
+    @Environment(SensorStore.self) private var store
+
     let name: String
     let celsius: Double
 
@@ -85,10 +88,10 @@ struct SensorRow: View {
                 .lineLimit(1)
                 .truncationMode(.tail)
             Spacer(minLength: Metrics.space8)
-            Text(String(format: "%.1f", celsius))
+            Text(store.unit.format(celsius, decimals: 1))
                 .font(Typo.readoutSmall)
                 .foregroundStyle(Palette.textPrimary)
-            Text("°C")
+            Text(store.unit.symbol)
                 .font(Typo.caption)
                 .foregroundStyle(Palette.textTertiary)
         }

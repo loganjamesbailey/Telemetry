@@ -17,6 +17,13 @@ final class SensorStore {
     /// Long-run history behind the dashboard charts.
     let history = HistoryStore()
 
+    /// Display unit for every temperature in the app and widget. Persisted.
+    var unit: TemperatureUnit = TemperatureUnit(
+        rawValue: UserDefaults.standard.string(forKey: "temperatureUnit") ?? ""
+    ) ?? .celsius {
+        didSet { UserDefaults.standard.set(unit.rawValue, forKey: "temperatureUnit") }
+    }
+
     /// Which sensor drives the menu bar label and hero readout. Persisted.
     var primarySensor: SensorID = SensorStore.loadPrimarySensor() {
         didSet {
@@ -74,7 +81,8 @@ final class SensorStore {
             primaryName: primaryReading?.name,
             primaryTempC: primary,
             fanRPM: snapshot.fans.first?.actualRPM,
-            fanMode: snapshot.fans.first?.modeDescription
+            fanMode: snapshot.fans.first?.modeDescription,
+            unit: unit
         )
     }
 
@@ -107,10 +115,11 @@ final class SensorStore {
     }
 
     /// Compact menu bar text, e.g. `61° 2.4k`. Fan RPM is abbreviated so the
-    /// label width stays stable as values change.
+    /// label width stays stable as values change; the unit letter is omitted
+    /// to keep the label narrow (the popover states it).
     var menuBarText: String {
         guard let temp = primaryTemperature else { return "—" }
-        let tempPart = "\(Int(temp.rounded()))°"
+        let tempPart = "\(Int(unit.convert(temp).rounded()))°"
         guard let fan, fan.actualRPM > 0 else { return tempPart }
         let rpm = fan.actualRPM
         let rpmPart = rpm >= 1000

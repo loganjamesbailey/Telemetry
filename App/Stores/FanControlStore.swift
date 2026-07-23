@@ -50,6 +50,8 @@ final class FanControlStore {
     /// Supplies the current temperature for a sensor; wired to SensorStore at
     /// app startup so the two stores stay decoupled.
     var temperatureProvider: (SensorID) -> Double? = { _ in nil }
+    /// Display unit for the activity strings; wired alongside the provider.
+    var unitProvider: () -> TemperatureUnit = { .celsius }
 
     private var curveRuntime: CurveRuntime?
     private var curveTimer: Timer?
@@ -233,7 +235,8 @@ final class FanControlStore {
         // App-side safety: this belt exists even though the daemon wears the
         // suspenders (its own watchdog trips at 95/100 °C from its own reads).
         if let hottest = temperatureProvider(VirtualSensors.systemHottest), hottest >= 100 {
-            lastResult = String(format: "%.0f °C — safety released to automatic", hottest)
+            let unit = unitProvider()
+            lastResult = "\(unit.format(hottest)) \(unit.symbol) — safety released to automatic"
             apply(.systemAuto, maxRPM: lastKnownMaxRPM)
             return
         }
@@ -245,9 +248,9 @@ final class FanControlStore {
         switch action {
         case .none:
             if hybridReleased {
-                curveActivity = String(format: "AUTO · below curve (%.0f°)", temp)
+                curveActivity = "AUTO · below curve (\(unitProvider().format(temp))°)"
             } else if let applied = appliedRPM {
-                curveActivity = String(format: "%.0f° → %d RPM", temp, Int(applied))
+                curveActivity = "\(unitProvider().format(temp))° → \(Int(applied)) RPM"
             }
 
         case .release:
@@ -266,9 +269,8 @@ final class FanControlStore {
                 switch result {
                 case .success(let (code, applied)) where code.isSuccess:
                     self.appliedRPM = applied
-                    self.curveActivity = String(
-                        format: "%@%.0f° → %d RPM", wasReleased ? "reacquired · " : "", temp, Int(applied)
-                    )
+                    self.curveActivity = (wasReleased ? "reacquired · " : "")
+                        + "\(self.unitProvider().format(temp))° → \(Int(applied)) RPM"
                     self.startKeepalive()
                 case .success(let (code, _)):
                     self.curveFault("Curve write failed: \(code.description)")

@@ -49,8 +49,8 @@ struct PopoverView: View {
                 if let temp = store.primaryTemperature {
                     // The one steady glow in the popover: this is the live value.
                     Readout(
-                        value: String(format: "%.1f", temp),
-                        unit: "°C",
+                        value: store.unit.format(temp, decimals: 1),
+                        unit: store.unit.symbol,
                         font: Typo.heroReadout,
                         color: Palette.accentData,
                         glow: GlowLevel.steady

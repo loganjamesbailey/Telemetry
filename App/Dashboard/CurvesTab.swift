@@ -78,6 +78,7 @@ struct CurvesTab: View {
                         minRPM: minRPM,
                         maxRPM: maxRPM,
                         liveTempC: draft.flatMap { sensors.snapshot.reading($0.input)?.celsius },
+                        unit: sensors.unit,
                         onCommit: commit
                     )
                     .frame(minHeight: 300)
@@ -114,9 +115,16 @@ struct CurvesTab: View {
                     Hairline()
 
                     HStack(spacing: Metrics.space24) {
+                        // Hysteresis is an interval, so °F conversion scales
+                        // without the +32 offset; stored value stays Celsius.
                         labeledStepper(
-                            "Hysteresis", value: binding.hysteresisC,
-                            range: 0...10, step: 1, unit: "°C"
+                            "Hysteresis",
+                            value: Binding(
+                                get: { sensors.unit.convertDelta(binding.wrappedValue.hysteresisC) },
+                                set: { binding.wrappedValue.hysteresisC = sensors.unit.inverseDelta($0) }
+                            ),
+                            range: 0...sensors.unit.convertDelta(10), step: 1,
+                            unit: sensors.unit.symbol
                         )
                         labeledStepper(
                             "Spin-down dwell", value: binding.minDwellSeconds,
@@ -206,18 +214,18 @@ struct CurvesTab: View {
                 if let hybrid = binding.wrappedValue.hybridAuto {
                     Stepper(
                         value: Binding(
-                            get: { hybrid.releaseBelowC },
-                            set: { newValue in
+                            get: { sensors.unit.convert(hybrid.releaseBelowC) },
+                            set: { displayValue in
                                 var h = hybrid
-                                h.releaseBelowC = newValue
-                                h.reacquireAboveC = max(h.reacquireAboveC, newValue + 2)
+                                h.releaseBelowC = sensors.unit.inverse(displayValue)
+                                h.reacquireAboveC = max(h.reacquireAboveC, h.releaseBelowC + 2)
                                 binding.wrappedValue.hybridAuto = h
                             }
                         ),
-                        in: 30...90, step: 1,
+                        in: sensors.unit.convert(30)...sensors.unit.convert(90), step: 1,
                         onEditingChanged: { editing in if !editing { commit() } }
                     ) {
-                        Text(verbatim: "below \(Int(hybrid.releaseBelowC))° → macOS")
+                        Text(verbatim: "below \(Int(sensors.unit.convert(hybrid.releaseBelowC)))° → macOS")
                             .font(Typo.readoutSmall)
                     }
                     .controlSize(.small)

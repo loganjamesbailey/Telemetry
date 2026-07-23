@@ -67,6 +67,21 @@ struct SettingsTab: View {
 
                 HStack(spacing: Metrics.space12) {
                     VStack(alignment: .leading, spacing: 2) {
+                        Text("Temperature unit")
+                            .font(Typo.body)
+                            .foregroundStyle(Palette.textPrimary)
+                        Text("Applies everywhere, including the widget.")
+                            .font(Typo.caption)
+                            .foregroundStyle(Palette.textTertiary)
+                    }
+                    Spacer()
+                    unitPicker
+                }
+
+                Hairline()
+
+                HStack(spacing: Metrics.space12) {
+                    VStack(alignment: .leading, spacing: 2) {
                         Text("Menu bar sensor")
                             .font(Typo.body)
                             .foregroundStyle(Palette.textPrimary)
@@ -79,6 +94,18 @@ struct SettingsTab: View {
                 }
             }
         }
+    }
+
+    private var unitPicker: some View {
+        @Bindable var store = store
+        return Picker("", selection: $store.unit) {
+            Text("°C").tag(TemperatureUnit.celsius)
+            Text("°F").tag(TemperatureUnit.fahrenheit)
+        }
+        .pickerStyle(.segmented)
+        .labelsHidden()
+        .controlSize(.small)
+        .frame(width: 110)
     }
 
     private var sensorPicker: some View {
