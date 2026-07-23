@@ -1,0 +1,16 @@
+{
+  "" : {
+    "const-values" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/HIDSensors.build/Objects-normal/arm64/HIDSensors-primary.swiftconstvalues",
+    "dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/HIDSensors.build/Objects-normal/arm64/HIDSensors-primary.d",
+    "diagnostics" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/HIDSensors.build/Objects-normal/arm64/HIDSensors-primary.dia",
+    "emit-module-dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/HIDSensors.build/Objects-normal/arm64/HIDSensors-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/HIDSensors.build/Objects-normal/arm64/HIDSensors-primary-emit-module.dia",
+    "pch" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/HIDSensors.build/Objects-normal/arm64/HIDSensors-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/HIDSensors.build/Objects-normal/arm64/HIDSensors-primary.swiftdeps"
+  },
+  "/Users/james/Projects/Telemetry/Packages/TelemetryCore/Sources/HIDSensors/HIDSensorReader.swift" : {
+    "index-unit-output-path" : "/TelemetryCore.build/Release/HIDSensors.build/Objects-normal/arm64/HIDSensorReader.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/HIDSensors.build/Objects-normal/arm64/HIDSensorReader.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/HIDSensors.build/Objects-normal/arm64/HIDSensorReader.o"
+  }
+}

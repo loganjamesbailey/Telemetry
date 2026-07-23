@@ -1,0 +1,12 @@
+{
+  "/Users/james/Projects/Telemetry/App/Design/Components.swift" : {
+    "abi-baseline-json" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/Telemetry.abi.json",
+    "const-values" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/Telemetry-primary.swiftconstvalues",
+    "dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/Telemetry-primary.d",
+    "diagnostics" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/Telemetry-primary.dia",
+    "objc-header" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/Telemetry-Swift.h",
+    "swiftdoc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/Telemetry.swiftdoc",
+    "swiftmodule" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/Telemetry.swiftmodule",
+    "swiftsourceinfo" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/Telemetry.swiftsourceinfo"
+  }
+}

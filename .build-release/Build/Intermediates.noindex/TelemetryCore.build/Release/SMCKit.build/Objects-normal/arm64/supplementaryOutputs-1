@@ -1,0 +1,12 @@
+{
+  "/Users/james/Projects/Telemetry/Packages/TelemetryCore/Sources/SMCKit/FanControl.swift" : {
+    "abi-baseline-json" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCKit.abi.json",
+    "const-values" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCKit-primary.swiftconstvalues",
+    "dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCKit-primary.d",
+    "diagnostics" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCKit-primary.dia",
+    "objc-header" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCKit-Swift.h",
+    "swiftdoc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCKit.swiftdoc",
+    "swiftmodule" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCKit.swiftmodule",
+    "swiftsourceinfo" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCKit.swiftsourceinfo"
+  }
+}

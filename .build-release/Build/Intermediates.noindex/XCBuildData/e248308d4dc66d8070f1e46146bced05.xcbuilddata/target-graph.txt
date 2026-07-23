@@ -1,0 +1,24 @@
+Target dependency graph (10 targets)
+Target 'Telemetry' in project 'Telemetry'
+➜ Explicit dependency on target 'TelemetryHelper' in project 'Telemetry'
+➜ Explicit dependency on target 'TelemetryWidget' in project 'Telemetry'
+➜ Explicit dependency on target 'SMCKit' in project 'TelemetryCore'
+➜ Explicit dependency on target 'HIDSensors' in project 'TelemetryCore'
+➜ Explicit dependency on target 'TelemetryShared' in project 'TelemetryCore'
+Target 'HIDSensors' in project 'TelemetryCore'
+➜ Explicit dependency on target 'HIDSensors' in project 'TelemetryCore'
+➜ Explicit dependency on target 'CHIDShim' in project 'TelemetryCore'
+Target 'HIDSensors' in project 'TelemetryCore'
+➜ Explicit dependency on target 'CHIDShim' in project 'TelemetryCore'
+Target 'CHIDShim' in project 'TelemetryCore' (no dependencies)
+Target 'TelemetryWidget' in project 'Telemetry'
+➜ Explicit dependency on target 'TelemetryShared' in project 'TelemetryCore'
+Target 'TelemetryHelper' in project 'Telemetry'
+➜ Explicit dependency on target 'SMCKit' in project 'TelemetryCore'
+➜ Explicit dependency on target 'TelemetryShared' in project 'TelemetryCore'
+Target 'TelemetryShared' in project 'TelemetryCore'
+➜ Explicit dependency on target 'TelemetryShared' in project 'TelemetryCore'
+Target 'TelemetryShared' in project 'TelemetryCore' (no dependencies)
+Target 'SMCKit' in project 'TelemetryCore'
+➜ Explicit dependency on target 'SMCKit' in project 'TelemetryCore'
+Target 'SMCKit' in project 'TelemetryCore' (no dependencies)

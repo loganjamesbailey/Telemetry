@@ -1,0 +1,16 @@
+{
+  "" : {
+    "const-values" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryWidget.build/Objects-normal/arm64/TelemetryWidget-primary.swiftconstvalues",
+    "dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryWidget.build/Objects-normal/arm64/TelemetryWidget-primary.d",
+    "diagnostics" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryWidget.build/Objects-normal/arm64/TelemetryWidget-primary.dia",
+    "emit-module-dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryWidget.build/Objects-normal/arm64/TelemetryWidget-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryWidget.build/Objects-normal/arm64/TelemetryWidget-primary-emit-module.dia",
+    "pch" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryWidget.build/Objects-normal/arm64/TelemetryWidget-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryWidget.build/Objects-normal/arm64/TelemetryWidget-primary.swiftdeps"
+  },
+  "/Users/james/Projects/Telemetry/Widget/TelemetryWidget.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/TelemetryWidget.build/Objects-normal/arm64/TelemetryWidget.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryWidget.build/Objects-normal/arm64/TelemetryWidget.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryWidget.build/Objects-normal/arm64/TelemetryWidget.o"
+  }
+}

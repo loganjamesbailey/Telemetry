@@ -61,8 +61,21 @@ for bin in "$APP" "$APP/Contents/MacOS/TelemetryHelper" "$APP/Contents/PlugIns/T
         *"Authority=Developer ID Application"*) ;;
         *) echo "✗ $bin is not Developer ID signed" >&2; exit 1 ;;
     esac
+    # Notary requirements, checked locally so a bad build fails in seconds
+    # instead of after a round-trip to Apple:
+    case "$sig" in
+        *"Timestamp="*) ;;
+        *) echo "✗ $bin has no secure timestamp (need --timestamp at signing)" >&2; exit 1 ;;
+    esac
+    ents=$(codesign -d --entitlements - --xml "$bin" 2>/dev/null || true)
+    case "$ents" in
+        *"get-task-allow"*)
+            echo "✗ $bin carries get-task-allow (development entitlement; notary rejects it)" >&2
+            exit 1
+            ;;
+    esac
 done
-echo "✓ Developer ID signatures verified"
+echo "✓ Developer ID signatures, timestamps, and entitlements verified"
 
 # ── Notarize & staple ────────────────────────────────────────────────────────
 STAGE=$(mktemp -d)

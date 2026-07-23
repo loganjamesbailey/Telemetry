@@ -1,0 +1,31 @@
+{
+  "" : {
+    "const-values" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCKit-primary.swiftconstvalues",
+    "dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCKit-primary.d",
+    "diagnostics" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCKit-primary.dia",
+    "emit-module-dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCKit-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCKit-primary-emit-module.dia",
+    "pch" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCKit-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCKit-primary.swiftdeps"
+  },
+  "/Users/james/Projects/Telemetry/Packages/TelemetryCore/Sources/SMCKit/FanControl.swift" : {
+    "index-unit-output-path" : "/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/FanControl.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/FanControl.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/FanControl.o"
+  },
+  "/Users/james/Projects/Telemetry/Packages/TelemetryCore/Sources/SMCKit/M1SensorNames.swift" : {
+    "index-unit-output-path" : "/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/M1SensorNames.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/M1SensorNames.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/M1SensorNames.o"
+  },
+  "/Users/james/Projects/Telemetry/Packages/TelemetryCore/Sources/SMCKit/SMCClient.swift" : {
+    "index-unit-output-path" : "/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCClient.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCClient.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCClient.o"
+  },
+  "/Users/james/Projects/Telemetry/Packages/TelemetryCore/Sources/SMCKit/SMCTypes.swift" : {
+    "index-unit-output-path" : "/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCTypes.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCTypes.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/SMCKit.build/Objects-normal/arm64/SMCTypes.o"
+  }
+}

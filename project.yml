@@ -50,6 +50,13 @@ targets:
         PRODUCT_NAME: TelemetryWidget
         CODE_SIGN_ENTITLEMENTS: Config/Widget.entitlements
         SKIP_INSTALL: YES
+      configs:
+        Release:
+          # Notarization requirements: secure timestamp on every signature,
+          # and no get-task-allow (the debugger entitlement Xcode injects for
+          # development builds). Release only — --timestamp needs network.
+          OTHER_CODE_SIGN_FLAGS: "--timestamp"
+          CODE_SIGN_INJECT_BASE_ENTITLEMENTS: NO
     info:
       path: Widget/Info.plist
       properties:
@@ -77,6 +84,13 @@ targets:
         # Command-line tools sign with PRODUCT_NAME as identifier by default;
         # the app pins the daemon by this exact identifier, so force it.
         OTHER_CODE_SIGN_FLAGS: "-i com.jamesbailey.telemetry.helper"
+      configs:
+        Release:
+          # The -i flag must be REPEATED here: this per-config value replaces
+          # the base value, and losing the identifier would break the app's
+          # code-signing pin on the daemon (fan control would silently die).
+          OTHER_CODE_SIGN_FLAGS: "-i com.jamesbailey.telemetry.helper --timestamp"
+          CODE_SIGN_INJECT_BASE_ENTITLEMENTS: NO
         # Root process: no GUI frameworks, hardened runtime, same identity as
         # the app (SMAppService hard requirement).
 
@@ -124,6 +138,11 @@ targets:
         CURRENT_PROJECT_VERSION: "1"
         INFOPLIST_KEY_NSHumanReadableCopyright: ""
         COMBINE_HIDPI_IMAGES: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+      configs:
+        Release:
+          OTHER_CODE_SIGN_FLAGS: "--timestamp"
+          CODE_SIGN_INJECT_BASE_ENTITLEMENTS: NO
     info:
       path: App/Info.plist
       properties:

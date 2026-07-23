@@ -1,0 +1,12 @@
+{
+  "/Users/james/Projects/Telemetry/Packages/TelemetryCore/Sources/TelemetryShared/FanCurve.swift" : {
+    "abi-baseline-json" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/TelemetryShared.abi.json",
+    "const-values" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/TelemetryShared-primary.swiftconstvalues",
+    "dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/TelemetryShared-primary.d",
+    "diagnostics" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/TelemetryShared-primary.dia",
+    "objc-header" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/TelemetryShared-Swift.h",
+    "swiftdoc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/TelemetryShared.swiftdoc",
+    "swiftmodule" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/TelemetryShared.swiftmodule",
+    "swiftsourceinfo" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/TelemetryShared.swiftsourceinfo"
+  }
+}

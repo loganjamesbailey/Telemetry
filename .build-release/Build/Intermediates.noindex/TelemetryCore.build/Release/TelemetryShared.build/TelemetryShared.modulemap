@@ -1,0 +1,4 @@
+module TelemetryShared {
+header "TelemetryShared-Swift.h"
+export *
+}

@@ -1,0 +1,12 @@
+{
+  "/Users/james/Projects/Telemetry/Helper/DaemonFanController.swift" : {
+    "abi-baseline-json" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/TelemetryHelper.abi.json",
+    "const-values" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/TelemetryHelper-primary.swiftconstvalues",
+    "dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/TelemetryHelper-primary.d",
+    "diagnostics" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/TelemetryHelper-primary.dia",
+    "objc-header" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/TelemetryHelper-Swift.h",
+    "swiftdoc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/TelemetryHelper.swiftdoc",
+    "swiftmodule" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/TelemetryHelper.swiftmodule",
+    "swiftsourceinfo" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/TelemetryHelper.swiftsourceinfo"
+  }
+}

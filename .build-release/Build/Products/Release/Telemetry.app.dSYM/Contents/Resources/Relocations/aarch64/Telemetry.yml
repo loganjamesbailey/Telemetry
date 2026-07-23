@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/james/Projects/Telemetry/.build-release/Build/Products/Release/Telemetry.app/Contents/MacOS/Telemetry'
+relocations:     []
+...

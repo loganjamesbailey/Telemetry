@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- The five strings that must agree: this Label, this file's name, the
+	     MachServices key, BundleProgram's path, and the constants in
+	     TelemetryShared/HelperProtocol.swift. Mismatch = launchd status 78. -->
+	<key>Label</key>
+	<string>com.jamesbailey.telemetry.helper</string>
+	<key>BundleProgram</key>
+	<string>Contents/MacOS/TelemetryHelper</string>
+	<key>MachServices</key>
+	<dict>
+		<key>com.jamesbailey.telemetry.helper.xpc</key>
+		<true/>
+	</dict>
+	<key>AssociatedBundleIdentifiers</key>
+	<array>
+		<string>com.jamesbailey.telemetry</string>
+	</array>
+	<!-- No KeepAlive: launch-on-demand only. The root process should exist
+	     only while the app is talking to it. -->
+</dict>
+</plist>

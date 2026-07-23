@@ -1,0 +1,31 @@
+{
+  "" : {
+    "const-values" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/TelemetryHelper-primary.swiftconstvalues",
+    "dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/TelemetryHelper-primary.d",
+    "diagnostics" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/TelemetryHelper-primary.dia",
+    "emit-module-dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/TelemetryHelper-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/TelemetryHelper-primary-emit-module.dia",
+    "pch" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/TelemetryHelper-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/TelemetryHelper-primary.swiftdeps"
+  },
+  "/Users/james/Projects/Telemetry/Helper/DaemonFanController.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/DaemonFanController.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/DaemonFanController.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/DaemonFanController.o"
+  },
+  "/Users/james/Projects/Telemetry/Helper/HelperTool.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/HelperTool.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/HelperTool.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/HelperTool.o"
+  },
+  "/Users/james/Projects/Telemetry/Helper/PowerMonitor.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/PowerMonitor.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/PowerMonitor.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/PowerMonitor.o"
+  },
+  "/Users/james/Projects/Telemetry/Helper/main.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/main.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/main.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/TelemetryHelper.build/Objects-normal/arm64/main.o"
+  }
+}

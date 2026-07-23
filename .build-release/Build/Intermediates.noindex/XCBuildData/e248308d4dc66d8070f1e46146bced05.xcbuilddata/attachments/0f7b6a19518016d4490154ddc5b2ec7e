@@ -1,0 +1,111 @@
+{
+  "" : {
+    "const-values" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/Telemetry-primary.swiftconstvalues",
+    "dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/Telemetry-primary.d",
+    "diagnostics" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/Telemetry-primary.dia",
+    "emit-module-dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/Telemetry-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/Telemetry-primary-emit-module.dia",
+    "pch" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/Telemetry-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/Telemetry-primary.swiftdeps"
+  },
+  "/Users/james/Projects/Telemetry/App/Dashboard/CurveEditorView.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/CurveEditorView.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/CurveEditorView.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/CurveEditorView.o"
+  },
+  "/Users/james/Projects/Telemetry/App/Dashboard/CurvesTab.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/CurvesTab.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/CurvesTab.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/CurvesTab.o"
+  },
+  "/Users/james/Projects/Telemetry/App/Dashboard/DashboardWindow.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/DashboardWindow.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/DashboardWindow.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/DashboardWindow.o"
+  },
+  "/Users/james/Projects/Telemetry/App/Dashboard/HistoryTab.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/HistoryTab.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/HistoryTab.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/HistoryTab.o"
+  },
+  "/Users/james/Projects/Telemetry/App/Dashboard/SettingsTab.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/SettingsTab.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/SettingsTab.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/SettingsTab.o"
+  },
+  "/Users/james/Projects/Telemetry/App/Design/Components.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/Components.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/Components.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/Components.o"
+  },
+  "/Users/james/Projects/Telemetry/App/Design/DesignTokens.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/DesignTokens.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/DesignTokens.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/DesignTokens.o"
+  },
+  "/Users/james/Projects/Telemetry/App/Design/NeonGlow.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/NeonGlow.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/NeonGlow.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/NeonGlow.o"
+  },
+  "/Users/james/Projects/Telemetry/App/Engine/HelperClient.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/HelperClient.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/HelperClient.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/HelperClient.o"
+  },
+  "/Users/james/Projects/Telemetry/App/Engine/HelperInstaller.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/HelperInstaller.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/HelperInstaller.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/HelperInstaller.o"
+  },
+  "/Users/james/Projects/Telemetry/App/Engine/SensorEngine.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/SensorEngine.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/SensorEngine.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/SensorEngine.o"
+  },
+  "/Users/james/Projects/Telemetry/App/Engine/VirtualSensors.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/VirtualSensors.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/VirtualSensors.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/VirtualSensors.o"
+  },
+  "/Users/james/Projects/Telemetry/App/Engine/WidgetSnapshotWriter.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/WidgetSnapshotWriter.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/WidgetSnapshotWriter.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/WidgetSnapshotWriter.o"
+  },
+  "/Users/james/Projects/Telemetry/App/MenuBar/FanControls.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/FanControls.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/FanControls.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/FanControls.o"
+  },
+  "/Users/james/Projects/Telemetry/App/MenuBar/PopoverView.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/PopoverView.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/PopoverView.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/PopoverView.o"
+  },
+  "/Users/james/Projects/Telemetry/App/Stores/FanControlStore.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/FanControlStore.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/FanControlStore.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/FanControlStore.o"
+  },
+  "/Users/james/Projects/Telemetry/App/Stores/HistoryStore.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/HistoryStore.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/HistoryStore.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/HistoryStore.o"
+  },
+  "/Users/james/Projects/Telemetry/App/Stores/PresetStore.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/PresetStore.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/PresetStore.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/PresetStore.o"
+  },
+  "/Users/james/Projects/Telemetry/App/Stores/SensorStore.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/SensorStore.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/SensorStore.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/SensorStore.o"
+  },
+  "/Users/james/Projects/Telemetry/App/TelemetryApp.swift" : {
+    "index-unit-output-path" : "/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/TelemetryApp.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/TelemetryApp.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/Telemetry.build/Release/Telemetry.build/Objects-normal/arm64/TelemetryApp.o"
+  }
+}
