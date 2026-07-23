@@ -29,18 +29,32 @@ public struct FanTelemetry {
 /// CLI and the root helper daemon so the exact code path proven in the spike
 /// ships in the product.
 ///
-/// Write-path facts this encodes (verified against exelban/stats and
-/// agoodkind/macos-smc-fan, see docs/research/research-smc.md):
+/// Write-path facts this encodes. Items marked (measured) were established
+/// empirically on MacBookPro17,1 / macOS 26.5 and CONTRADICT the published
+/// reference behaviour, which came from a MacBookPro18,1 — see
+/// docs/research/research-smc.md and docs/hardware-notes.md.
 /// - Fan keys on Apple Silicon are "flt " floats; the mode key is ui8.
 /// - The mode key is `F%dMd` on M1-era chips, lowercase `F%dmd` on newer ones —
 ///   probe at runtime.
-/// - Direct mode=1 writes work on M1; newer firmware rejects them (result
-///   0x82) until `Ftst` is written to 1 and thermalmonitord yields (~3 s).
+/// - (measured) Mode changes apply ASYNCHRONOUSLY, ~150 ms. An immediate
+///   read-back reports the old mode, which looks exactly like a hard rejection.
+/// - (measured) Writes to `F%dTg` are IGNORED while the fan is in automatic
+///   mode — firmware owns the target until control is handed over, so the
+///   target cannot be staged before the mode switch.
+/// - (measured) There is no `Ftst` key on MacBookPro17,1; the diagnostic-unlock
+///   fallback is kept for machines that do have it.
 /// - Firmware does NOT clamp targets — callers must respect [minRPM, maxRPM].
-/// - Sleep resets Ftst; nothing survives reboot.
+/// - Nothing survives reboot; sleep also drops forced state.
 public final class FanControl {
     private let smc: SMCClient
     private var cachedModeKeys: [Int: String] = [:]
+
+    /// The SMC applies fan-mode changes asynchronously — an immediate read-back
+    /// still reports the old mode. Measured at ~150 ms on MacBookPro17,1;
+    /// 250 ms gives margin without making control feel sluggish.
+    public var modeSettleMicroseconds: UInt32 = 250_000
+    /// How many times to re-assert a mode+target pair before giving up.
+    public var applyAttempts = 6
 
     public init(smc: SMCClient) {
         self.smc = smc
@@ -239,26 +253,54 @@ public final class FanControl {
             }
         }
 
-        // Stage the target BEFORE taking control. Two reasons:
-        //  1. Firmware appears to refuse forced mode while the target is 0 —
-        //     observed on MacBookPro17,1, where F0Md=1 is accepted (result
-        //     byte 0x00) but silently reverts to automatic with F0Tg=0.
-        //  2. It removes the window in which the fan is forced to whatever
-        //     stale target F0Tg happened to hold (restoreAutomatic leaves 0.0,
-        //     i.e. "stop the fan").
-        try smc.writeFloat("F\(id)Tg", applied)
+        // Apply mode and target as a PAIR, then verify both together.
+        //
+        // Two firmware behaviours observed on MacBookPro17,1 force this shape:
+        //  1. Writes to F0Tg are ignored while the fan is in automatic mode —
+        //     the firmware owns the target until control is handed over. So the
+        //     target cannot be staged first.
+        //  2. The F0Md change applies ASYNCHRONOUSLY. An immediate read-back
+        //     still reports automatic; ~200 ms later it reports forced. Trusting
+        //     the immediate read-back is what made the first attempt look like a
+        //     hard failure.
+        //
+        // Writing both back-to-back keeps the window in which the fan is forced
+        // to a stale target (restoreAutomatic leaves 0.0 = stopped) down to
+        // microseconds, and the pair is re-asserted until both verify.
+        let modeK = modeKey(fan: id)
+        let targetKey = "F\(id)Tg"
+        var lastFailure: Error = SMCError.writeVerifyFailed(key: modeK)
+        var applyPath = "pair-write"
 
-        let path = try ensureForcedMode(fan: id, isCancelled: isCancelled, log: log)
-        weTookControl = (path != "already-forced")
+        for attempt in 0..<applyAttempts {
+            if isCancelled() { throw SMCError.cancelled }
+            do {
+                let alreadyForced = (try? currentMode(fan: id)) == .forced
+                if !alreadyForced {
+                    try smc.writeUInt8(modeK, FanMode.forced.rawValue, attempts: 2)
+                    weTookControl = true
+                }
+                try smc.writeFloat(targetKey, applied, attempts: 2)
+            } catch SMCError.notPrivileged {
+                throw SMCError.notPrivileged
+            } catch {
+                lastFailure = error
+            }
 
-        // The mode transition can reset the target; re-assert and verify.
-        try smc.writeFloat("F\(id)Tg", applied)
-        let readback = try smc.readFloat("F\(id)Tg")
-        guard abs(readback - applied) < 1.0 else {
-            throw SMCError.writeVerifyFailed(key: "F\(id)Tg")
+            usleep(modeSettleMicroseconds)
+
+            let mode = try? currentMode(fan: id)
+            let readback = try? smc.readFloat(targetKey)
+            if mode == .forced, let readback, abs(readback - applied) < 1.0 {
+                committed = true
+                applyPath = attempt == 0 ? "pair-write" : "pair-write (attempt \(attempt + 1))"
+                return (applied, clamped, applyPath)
+            }
+            lastFailure = SMCError.writeVerifyFailed(
+                key: mode == .forced ? targetKey : modeK
+            )
         }
-        committed = true
-        return (applied, clamped, path)
+        throw lastFailure
     }
 
     /// Hands all fans back to macOS automatic control. Safe to call
@@ -277,14 +319,31 @@ public final class FanControl {
         let count = (try? fanCount()) ?? 1
         for id in 0..<count {
             let key = modeKey(fan: id)
-            do {
-                try smc.writeUInt8(key, FanMode.automatic.rawValue)
-                try smc.writeFloat("F\(id)Tg", 0.0)
-                log("fan \(id): \(key)=0, F\(id)Tg=0.0")
-            } catch SMCError.notPrivileged {
-                throw SMCError.notPrivileged
-            } catch {
-                errors.append(error)
+            // The mode change lands asynchronously, so re-assert and confirm
+            // rather than trusting a single write's return value. Reporting a
+            // handback that never happened is the worst possible lie here.
+            var handedBack = false
+            for _ in 0..<applyAttempts {
+                do {
+                    try smc.writeUInt8(key, FanMode.automatic.rawValue, attempts: 2)
+                    try? smc.writeFloat("F\(id)Tg", 0.0, attempts: 2)
+                } catch SMCError.notPrivileged {
+                    throw SMCError.notPrivileged
+                } catch {
+                    errors.append(error)
+                }
+                usleep(modeSettleMicroseconds)
+                if isUnderSystemControl(fan: id) {
+                    handedBack = true
+                    break
+                }
+            }
+            if handedBack {
+                log("fan \(id): handed back to macOS (\(key)=0, verified)")
+            } else {
+                let failure = SMCError.writeVerifyFailed(key: key)
+                errors.append(failure)
+                log("fan \(id): STILL FORCED after \(applyAttempts) attempts")
             }
         }
 

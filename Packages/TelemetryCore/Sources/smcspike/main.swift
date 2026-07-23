@@ -98,7 +98,9 @@ func printTemps(_ smc: SMCClient) {
 }
 
 func hottest(_ smc: SMCClient) -> (name: String, celsius: Double)? {
-    let hid = HIDSensorReader()?.readAll() ?? []
+    // Calibration sensors (PMU tcal) hold a constant value and would otherwise
+    // always win a naive max().
+    let hid = (HIDSensorReader()?.readAll() ?? []).filter(\.isLiveTemperature)
     if let top = hid.max(by: { $0.celsius < $1.celsius }) {
         return (top.name, top.celsius)
     }

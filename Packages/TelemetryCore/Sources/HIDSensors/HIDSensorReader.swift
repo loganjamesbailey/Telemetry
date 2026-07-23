@@ -5,6 +5,20 @@ import Foundation
 public struct HIDSensorReading: Sendable {
     public let name: String
     public let celsius: Double
+
+    /// True for sensors that report a live die/block temperature, as opposed to
+    /// calibration or reference values.
+    ///
+    /// `PMU tcal` / `PMU2 tcal` sit at a fixed 51.9 °C on MacBookPro17,1 and
+    /// never move under load — taking a naive max() across all sensors picks
+    /// them and reports a machine as permanently 52 °C. Anything driving a fan
+    /// curve or a "hottest sensor" readout must exclude them.
+    public var isLiveTemperature: Bool {
+        let lowered = name.lowercased()
+        if lowered.contains("tcal") { return false }
+        if lowered.contains("gas gauge") { return false }  // battery pack, not silicon
+        return true
+    }
 }
 
 /// Reads Apple Silicon temperature sensors via the private
