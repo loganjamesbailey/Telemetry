@@ -4,6 +4,7 @@ import SwiftUI
 struct TelemetryApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @State private var store = SensorStore()
+    @State private var fanControl = FanControlStore()
 
     var body: some Scene {
         // .window style is mandatory for live content: the .menu style blocks
@@ -11,6 +12,7 @@ struct TelemetryApp: App {
         MenuBarExtra {
             PopoverView()
                 .environment(store)
+                .environment(fanControl)
                 .onAppear { store.setCadence(.active) }
                 .onDisappear { store.setCadence(.background) }
         } label: {
@@ -23,6 +25,7 @@ struct TelemetryApp: App {
         Window("Telemetry", id: DashboardWindow.id) {
             DashboardWindow()
                 .environment(store)
+                .environment(fanControl)
                 .onAppear {
                     store.setCadence(.active)
                     // An accessory app cannot bring a window properly forward;
@@ -59,5 +62,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         false
+    }
+
+    func applicationWillTerminate(_ notification: Notification) {
+        // Best-effort immediate release; the daemon's connection-invalidation
+        // restore is the guarantee if this never runs (kill -9, crash).
+        FanControlStore.shared?.releaseOnQuit()
     }
 }

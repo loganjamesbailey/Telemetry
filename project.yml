@@ -11,6 +11,10 @@ configs:
   Debug: debug
   Release: release
 
+configFiles:
+  Debug: Config/Shared.xcconfig
+  Release: Config/Shared.xcconfig
+
 packages:
   TelemetryCore:
     path: Packages/TelemetryCore
@@ -32,18 +36,62 @@ settings:
       SWIFT_OPTIMIZATION_LEVEL: "-O"
 
 targets:
+  TelemetryHelper:
+    type: tool
+    platform: macOS
+    sources:
+      - path: Helper
+        excludes:
+          - "*.plist"
+    dependencies:
+      - package: TelemetryCore
+        product: SMCKit
+      - package: TelemetryCore
+        product: TelemetryShared
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.jamesbailey.telemetry.helper
+        PRODUCT_NAME: TelemetryHelper
+        SKIP_INSTALL: YES
+        # Command-line tools sign with PRODUCT_NAME as identifier by default;
+        # the app pins the daemon by this exact identifier, so force it.
+        OTHER_CODE_SIGN_FLAGS: "-i com.jamesbailey.telemetry.helper"
+        # Root process: no GUI frameworks, hardened runtime, same identity as
+        # the app (SMAppService hard requirement).
+
   Telemetry:
     type: application
     platform: macOS
     sources:
       - path: App
     dependencies:
+      - target: TelemetryHelper
+        embed: false
       - package: TelemetryCore
         product: SMCKit
       - package: TelemetryCore
         product: HIDSensors
       - package: TelemetryCore
         product: TelemetryShared
+    postBuildScripts:
+      # Embed the daemon per SMAppService convention: binary in
+      # Contents/MacOS (BundleProgram points there), launchd plist in
+      # Contents/Library/LaunchDaemons. Runs before Xcode signs the app, so
+      # both files are covered by the app's seal; the helper binary itself is
+      # already signed by its own target build.
+      - name: Embed TelemetryHelper daemon
+        script: |
+          set -euo pipefail
+          APP="$BUILT_PRODUCTS_DIR/$FULL_PRODUCT_NAME"
+          mkdir -p "$APP/Contents/Library/LaunchDaemons"
+          cp "$BUILT_PRODUCTS_DIR/TelemetryHelper" "$APP/Contents/MacOS/TelemetryHelper"
+          cp "$SRCROOT/Helper/com.jamesbailey.telemetry.helper.plist" "$APP/Contents/Library/LaunchDaemons/"
+        inputFiles:
+          - $(BUILT_PRODUCTS_DIR)/TelemetryHelper
+          - $(SRCROOT)/Helper/com.jamesbailey.telemetry.helper.plist
+        outputFiles:
+          - $(BUILT_PRODUCTS_DIR)/$(FULL_PRODUCT_NAME)/Contents/MacOS/TelemetryHelper
+          - $(BUILT_PRODUCTS_DIR)/$(FULL_PRODUCT_NAME)/Contents/Library/LaunchDaemons/com.jamesbailey.telemetry.helper.plist
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.jamesbailey.telemetry

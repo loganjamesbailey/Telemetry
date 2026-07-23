@@ -1,0 +1,5 @@
+// Committed base config. Machine-specific signing lives in Local.xcconfig
+// (gitignored; copy Local.xcconfig.template). The include is optional so a
+// fresh checkout still generates a project — it just won't sign until the
+// team is set.
+#include? "Local.xcconfig"

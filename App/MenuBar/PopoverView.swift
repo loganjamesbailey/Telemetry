@@ -110,6 +110,8 @@ struct PopoverView: View {
                 }
 
                 fanBar(fan)
+                FanControls()
+                    .padding(.top, Metrics.space4)
             } else {
                 Text("No fan detected")
                     .font(Typo.body)
