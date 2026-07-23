@@ -1,0 +1,35 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    name: Package tests
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run TelemetryCore tests
+        run: cd Packages/TelemetryCore && swift test
+
+  build:
+    name: App build (unsigned)
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate project
+        run: xcodegen generate
+      - name: Consistency check
+        run: ./Scripts/verify-consistency.sh
+      - name: Build
+        # CI has no signing identity; build only to prove the code compiles.
+        # Real builds must be signed (SMAppService requirement) — see README.
+        run: |
+          xcodebuild -project Telemetry.xcodeproj -scheme Telemetry \
+            -configuration Release -derivedDataPath .build-ci \
+            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
+            build
