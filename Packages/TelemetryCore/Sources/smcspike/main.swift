@@ -14,8 +14,11 @@ USAGE:
   smcspike watch [seconds]   Live 1 Hz table (default until Ctrl-C; optional duration)
   smcspike list              Enumerate every SMC key with type and decoded value
   smcspike mode              Show fan mode key name and current mode
-  sudo smcspike force <rpm> [--fan N]   Force fan to RPM (clamped to [min,max])
+  sudo smcspike force <rpm> [--fan N] [--hold] [--seconds N]
+                             Force fan to RPM (clamped to [min,max]); restores
+                             automatic control when done unless --hold
   sudo smcspike auto         Restore automatic fan control (always safe)
+  sudo smcspike diag         Try each fan-control strategy, report what works
 """
 
 func fail(_ message: String) -> Never {
@@ -372,6 +375,107 @@ case "auto":
         fail("SMC writes require root: rerun with sudo")
     }
     exit(restoreAndVerify(fanControl) ? 0 : 2)
+
+case "diag":
+    // Tries each known strategy for taking fan control on this hardware and
+    // reports which one works, so an unknown machine costs one sudo run
+    // instead of a guessing game. Always restores automatic control.
+    if geteuid() != 0 {
+        fail("SMC writes require root: rerun with sudo")
+    }
+    warnAboutCompetingFanApps()
+    if let reason = thermalAbortReason(smc) {
+        fail("refusing to run diagnostics: \(reason)")
+    }
+    installRestoreOnSignal()
+
+    let probeRPM: Float = 3000
+    let fKeys = ["F0Md", "F0Tg", "F0Ac", "F0St", "FOff", "FOFC", "FRmp", "F0Sf", "F0Dc"]
+
+    func dumpState(_ label: String) {
+        let parts = fKeys.compactMap { key -> String? in
+            guard let (type, bytes) = try? smc.readBytes(key) else { return nil }
+            return "\(key)=\(SMCDecode.describe(type: type, bytes: bytes))"
+        }
+        print("  [\(label)] \(parts.joined(separator: "  "))")
+    }
+
+    func modeStuck() -> Bool {
+        (try? fanControl.currentMode(fan: 0)) == .forced
+    }
+
+    print("── baseline ──")
+    dumpState("start")
+
+    var winner: String?
+
+    // Strategy A: stage the target first, then switch mode. Firmware may
+    // refuse forced mode while the target reads 0.
+    print("\n── strategy A: target-then-mode ──")
+    do {
+        try smc.writeFloat("F0Tg", probeRPM)
+        dumpState("after F0Tg")
+        try smc.writeUInt8("F0Md", 1)
+        usleep(300_000)
+        dumpState("after F0Md=1")
+        if modeStuck() { winner = "A: target-then-mode" }
+    } catch {
+        print("  failed: \(error)")
+    }
+
+    // Strategy B: clear the fan-off latch first. FOff=1 on this machine while
+    // the fan idles at 0 RPM, which may be what blocks the mode change.
+    if winner == nil, smc.keyExists("FOff") {
+        print("\n── strategy B: FOff=0, then target, then mode ──")
+        do {
+            try smc.writeUInt8("FOff", 0)
+            usleep(200_000)
+            dumpState("after FOff=0")
+            try smc.writeFloat("F0Tg", probeRPM)
+            try smc.writeUInt8("F0Md", 1)
+            usleep(300_000)
+            dumpState("after F0Md=1")
+            if modeStuck() { winner = "B: FOff=0 first" }
+        } catch {
+            print("  failed: \(error)")
+        }
+    }
+
+    // Strategy C: hold the mode write down — some firmware reverts once and
+    // then accepts a persistent re-assertion.
+    if winner == nil {
+        print("\n── strategy C: repeated mode assertion (3 s) ──")
+        do {
+            try smc.writeFloat("F0Tg", probeRPM)
+            for _ in 0..<30 where !modeStuck() {
+                try? smc.writeUInt8("F0Md", 1, attempts: 1)
+                usleep(100_000)
+            }
+            dumpState("after repeat")
+            if modeStuck() { winner = "C: repeated assertion" }
+        } catch {
+            print("  failed: \(error)")
+        }
+    }
+
+    if let winner {
+        print("\n✅ WORKING STRATEGY — \(winner)")
+        print("   observing the fan for 8 s...")
+        for _ in 0..<8 where !interrupted.isSet {
+            Thread.sleep(forTimeInterval: 1.0)
+            if let t = try? fanControl.telemetry(fan: 0) {
+                print("   actual \(rpmString(t.actualRPM)) RPM   target \(rpmString(t.targetRPM))   mode \(t.mode?.description ?? "?")")
+            }
+        }
+    } else {
+        print("\n❌ no strategy worked — F0Md will not hold on this machine")
+    }
+
+    print("\n── restoring ──")
+    if smc.keyExists("FOff") { try? smc.writeUInt8("FOff", 1) }
+    let ok = restoreAndVerify(fanControl)
+    dumpState("final")
+    exit(ok ? 0 : 2)
 
 default:
     print(usage)

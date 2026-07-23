@@ -99,6 +99,7 @@ public final class FanControl {
     @discardableResult
     public func ensureForcedMode(
         fan id: Int,
+        directModeAttempts: Int = 8,
         isCancelled: () -> Bool = { false },
         log: (String) -> Void = { _ in }
     ) throws -> String {
@@ -110,18 +111,27 @@ public final class FanControl {
         // Preserve the genuine cause rather than reporting a firmware result
         // the firmware never returned.
         var directFailure: Error?
-        do {
-            try smc.writeUInt8(key, FanMode.forced.rawValue)
-            let readback = try currentMode(fan: id)
-            if readback == .forced { return "direct" }
-            directFailure = SMCError.writeVerifyFailed(key: key)
-            log("direct \(key)=1 accepted but read back as \(readback?.description ?? "unknown"); trying Ftst unlock")
-        } catch SMCError.notPrivileged {
-            throw SMCError.notPrivileged
-        } catch {
-            directFailure = error
-            log("direct \(key)=1 rejected (\(error)); trying Ftst unlock")
+
+        // The firmware can accept the write (result byte 0x00) and still not
+        // apply it, and on some models the mode change lands asynchronously —
+        // so retry with a delay before concluding the direct path is unusable.
+        for attempt in 0..<directModeAttempts {
+            if isCancelled() { throw SMCError.cancelled }
+            do {
+                try smc.writeUInt8(key, FanMode.forced.rawValue)
+                usleep(150_000)
+                let readback = try currentMode(fan: id)
+                if readback == .forced {
+                    return attempt == 0 ? "direct" : "direct (attempt \(attempt + 1))"
+                }
+                directFailure = SMCError.writeVerifyFailed(key: key)
+            } catch SMCError.notPrivileged {
+                throw SMCError.notPrivileged
+            } catch {
+                directFailure = error
+            }
         }
+        log("direct \(key)=1 did not stick after \(directModeAttempts) attempts; trying Ftst unlock")
 
         guard smc.keyExists("Ftst") else {
             throw directFailure ?? SMCError.smcResult(SMCResult.badCommand, key: key)
@@ -208,10 +218,10 @@ public final class FanControl {
         // the mode switch and the target write would pin the fan at 0 RPM.
         let priorTarget = try? smc.readFloat("F\(id)Tg")
 
-        let path = try ensureForcedMode(fan: id, isCancelled: isCancelled, log: log)
-        let weTookControl = (path != "already-forced")
-
         var committed = false
+        // Declared before the target write so the rollback also covers a
+        // failure during the mode transition itself.
+        var weTookControl = false
         defer {
             if !committed {
                 if weTookControl {
@@ -229,9 +239,20 @@ public final class FanControl {
             }
         }
 
+        // Stage the target BEFORE taking control. Two reasons:
+        //  1. Firmware appears to refuse forced mode while the target is 0 —
+        //     observed on MacBookPro17,1, where F0Md=1 is accepted (result
+        //     byte 0x00) but silently reverts to automatic with F0Tg=0.
+        //  2. It removes the window in which the fan is forced to whatever
+        //     stale target F0Tg happened to hold (restoreAutomatic leaves 0.0,
+        //     i.e. "stop the fan").
         try smc.writeFloat("F\(id)Tg", applied)
 
-        // Verify the target took; the actual RPM converges over ~seconds.
+        let path = try ensureForcedMode(fan: id, isCancelled: isCancelled, log: log)
+        weTookControl = (path != "already-forced")
+
+        // The mode transition can reset the target; re-assert and verify.
+        try smc.writeFloat("F\(id)Tg", applied)
         let readback = try smc.readFloat("F\(id)Tg")
         guard abs(readback - applied) < 1.0 else {
             throw SMCError.writeVerifyFailed(key: "F\(id)Tg")
