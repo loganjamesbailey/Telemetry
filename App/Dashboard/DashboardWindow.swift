@@ -9,16 +9,51 @@ struct DashboardWindow: View {
 
     @Environment(SensorStore.self) private var store
 
+    private enum Tab: String, CaseIterable {
+        case overview = "OVERVIEW"
+        case curves = "CURVES"
+    }
+
+    @State private var tab: Tab = .overview
+
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: Metrics.space24) {
-                overview
-                sensorGrid
+        VStack(spacing: 0) {
+            tabBar
+            Hairline()
+            ScrollView {
+                VStack(alignment: .leading, spacing: Metrics.space24) {
+                    switch tab {
+                    case .overview:
+                        overview
+                        sensorGrid
+                    case .curves:
+                        CurvesTab()
+                    }
+                }
+                .padding(Metrics.space24)
             }
-            .padding(Metrics.space24)
         }
         .background(Palette.bgBase)
-        .frame(minWidth: 640, minHeight: 480)
+        .frame(minWidth: 720, minHeight: 520)
+    }
+
+    private var tabBar: some View {
+        HStack(spacing: Metrics.space24) {
+            ForEach(Tab.allCases, id: \.self) { candidate in
+                Button {
+                    tab = candidate
+                } label: {
+                    Text(candidate.rawValue)
+                        .font(Typo.sensorLabel)
+                        .tracking(1.2)
+                        .foregroundStyle(tab == candidate ? Palette.textPrimary : Palette.textTertiary)
+                }
+                .buttonStyle(.plain)
+            }
+            Spacer()
+        }
+        .padding(.horizontal, Metrics.space24)
+        .padding(.vertical, Metrics.space12)
     }
 
     private var overview: some View {

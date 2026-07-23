@@ -5,6 +5,7 @@ struct TelemetryApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @State private var store = SensorStore()
     @State private var fanControl = FanControlStore()
+    @State private var presets = PresetStore()
 
     var body: some Scene {
         // .window style is mandatory for live content: the .menu style blocks
@@ -13,6 +14,7 @@ struct TelemetryApp: App {
             PopoverView()
                 .environment(store)
                 .environment(fanControl)
+                .environment(presets)
                 .onAppear { store.setCadence(.active) }
                 .onDisappear { store.setCadence(.background) }
         } label: {
@@ -26,6 +28,7 @@ struct TelemetryApp: App {
             DashboardWindow()
                 .environment(store)
                 .environment(fanControl)
+                .environment(presets)
                 .onAppear {
                     store.setCadence(.active)
                     // An accessory app cannot bring a window properly forward;
@@ -43,6 +46,12 @@ struct TelemetryApp: App {
 
     init() {
         store.start()
+        // The curve engine reads temperatures through this seam so the two
+        // stores stay decoupled (and the engine is testable without a UI).
+        let sensors = store
+        fanControl.temperatureProvider = { id in
+            sensors.snapshot.reading(id)?.celsius
+        }
     }
 }
 

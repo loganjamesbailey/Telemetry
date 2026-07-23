@@ -31,7 +31,7 @@ let package = Package(
         ),
         .testTarget(
             name: "TelemetryCoreTests",
-            dependencies: ["SMCKit"]
+            dependencies: ["SMCKit", "TelemetryShared"]
         ),
     ]
 )

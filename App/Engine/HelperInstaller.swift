@@ -47,6 +47,20 @@ enum HelperInstaller {
         }
     }
 
+    /// Idempotent re-registration, run at every launch while enabled. Once
+    /// approved this never re-prompts, and it re-points launchd at THIS
+    /// bundle's daemon — the cure for stale registrations left by dev builds
+    /// running from other paths (the classic DerivedData trap).
+    static func reassertRegistrationIfEnabled() {
+        guard state == .enabled else { return }
+        do {
+            try service.register()
+            log.info("re-asserted daemon registration for this bundle")
+        } catch {
+            log.info("re-assert register() threw (harmless if approved): \(String(describing: error), privacy: .public)")
+        }
+    }
+
     /// Kicks off registration. Returns the resulting state; "Operation not
     /// permitted" is folded into `.requiresApproval` because that is what it
     /// means on first install.
