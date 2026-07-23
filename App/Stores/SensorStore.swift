@@ -14,8 +14,25 @@ final class SensorStore {
     private(set) var snapshot: SensorSnapshot = .empty
     private(set) var isConnected = false
 
-    /// Which sensor drives the menu bar label and hero readout.
-    var primarySensor: SensorID = VirtualSensors.cpuHottest
+    /// Long-run history behind the dashboard charts.
+    let history = HistoryStore()
+
+    /// Which sensor drives the menu bar label and hero readout. Persisted.
+    var primarySensor: SensorID = SensorStore.loadPrimarySensor() {
+        didSet {
+            if let data = try? JSONEncoder().encode(primarySensor) {
+                UserDefaults.standard.set(data, forKey: "primarySensor")
+            }
+        }
+    }
+
+    private static func loadPrimarySensor() -> SensorID {
+        guard let data = UserDefaults.standard.data(forKey: "primarySensor"),
+              let decoded = try? JSONDecoder().decode(SensorID.self, from: data) else {
+            return VirtualSensors.cpuHottest
+        }
+        return decoded
+    }
 
     /// Short rolling history for the popover sparkline. Bounded — an unbounded
     /// array behind a live chart is the classic way to make SwiftUI crawl.
@@ -41,12 +58,18 @@ final class SensorStore {
         self.snapshot = snapshot
         isConnected = !snapshot.readings.isEmpty || !snapshot.fans.isEmpty
 
-        if let value = snapshot.reading(primarySensor)?.celsius ?? snapshot.hottest?.celsius {
+        let primary = snapshot.reading(primarySensor)?.celsius ?? snapshot.hottest?.celsius
+        if let value = primary {
             recentPrimary.append(value)
             if recentPrimary.count > historyLimit {
                 recentPrimary.removeFirst(recentPrimary.count - historyLimit)
             }
         }
+        history.append(
+            primaryTemp: primary,
+            fanRPM: snapshot.fans.first?.actualRPM,
+            at: snapshot.timestamp
+        )
     }
 
     // MARK: - Derived values for the UI

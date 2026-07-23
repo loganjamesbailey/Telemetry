@@ -12,6 +12,8 @@ struct DashboardWindow: View {
     private enum Tab: String, CaseIterable {
         case overview = "OVERVIEW"
         case curves = "CURVES"
+        case history = "HISTORY"
+        case settings = "SETTINGS"
     }
 
     @State private var tab: Tab = .overview
@@ -28,6 +30,10 @@ struct DashboardWindow: View {
                         sensorGrid
                     case .curves:
                         CurvesTab()
+                    case .history:
+                        HistoryTab()
+                    case .settings:
+                        SettingsTab()
                     }
                 }
                 .padding(Metrics.space24)
