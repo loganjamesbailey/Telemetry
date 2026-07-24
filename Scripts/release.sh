@@ -98,12 +98,17 @@ echo "✓ $ARTIFACT ready"
 # ── Publish (optional) ───────────────────────────────────────────────────────
 if [ "${1:-}" = "--publish" ]; then
     TAG="v${VERSION}"
+    # Two copies of the same artifact: the versioned name for the archive, and
+    # a stable "Telemetry.zip" so the evergreen link never breaks:
+    #   https://github.com/loganjamesbailey/Telemetry/releases/latest/download/Telemetry.zip
+    cp "$ARTIFACT" Telemetry.zip
     if gh release view "$TAG" >/dev/null 2>&1; then
-        gh release upload "$TAG" "$ARTIFACT" --clobber
+        gh release upload "$TAG" "$ARTIFACT" Telemetry.zip --clobber
     else
-        gh release create "$TAG" "$ARTIFACT" \
+        gh release create "$TAG" "$ARTIFACT" Telemetry.zip \
             --title "Telemetry $TAG" \
             --notes "Notarized build. Download, unzip, drag to /Applications. Fan control needs one-time helper approval in System Settings → Login Items & Extensions."
     fi
+    rm -f Telemetry.zip
     echo "✓ Published to GitHub release $TAG"
 fi

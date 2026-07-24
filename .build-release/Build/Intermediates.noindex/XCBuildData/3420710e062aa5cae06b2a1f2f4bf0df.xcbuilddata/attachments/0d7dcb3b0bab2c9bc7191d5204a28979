@@ -1,0 +1,41 @@
+{
+  "" : {
+    "const-values" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/TelemetryShared-primary.swiftconstvalues",
+    "dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/TelemetryShared-primary.d",
+    "diagnostics" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/TelemetryShared-primary.dia",
+    "emit-module-dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/TelemetryShared-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/TelemetryShared-primary-emit-module.dia",
+    "pch" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/TelemetryShared-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/TelemetryShared-primary.swiftdeps"
+  },
+  "/Users/james/Projects/Telemetry/Packages/TelemetryCore/Sources/TelemetryShared/FanCurve.swift" : {
+    "index-unit-output-path" : "/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/FanCurve.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/FanCurve.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/FanCurve.o"
+  },
+  "/Users/james/Projects/Telemetry/Packages/TelemetryCore/Sources/TelemetryShared/HelperProtocol.swift" : {
+    "index-unit-output-path" : "/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/HelperProtocol.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/HelperProtocol.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/HelperProtocol.o"
+  },
+  "/Users/james/Projects/Telemetry/Packages/TelemetryCore/Sources/TelemetryShared/Models.swift" : {
+    "index-unit-output-path" : "/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/Models.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/Models.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/Models.o"
+  },
+  "/Users/james/Projects/Telemetry/Packages/TelemetryCore/Sources/TelemetryShared/TemperatureUnit.swift" : {
+    "index-unit-output-path" : "/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/TemperatureUnit.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/TemperatureUnit.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/TemperatureUnit.o"
+  },
+  "/Users/james/Projects/Telemetry/Packages/TelemetryCore/Sources/TelemetryShared/Version.swift" : {
+    "index-unit-output-path" : "/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/Version.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/Version.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/Version.o"
+  },
+  "/Users/james/Projects/Telemetry/Packages/TelemetryCore/Sources/TelemetryShared/WidgetSnapshot.swift" : {
+    "index-unit-output-path" : "/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/WidgetSnapshot.o",
+    "llvm-bc" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/WidgetSnapshot.bc",
+    "object" : "/Users/james/Projects/Telemetry/.build-release/Build/Intermediates.noindex/TelemetryCore.build/Release/TelemetryShared.build/Objects-normal/arm64/WidgetSnapshot.o"
+  }
+}

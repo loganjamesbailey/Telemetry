@@ -1,0 +1,4 @@
+module CHIDShim {
+umbrella "/Users/james/Projects/Telemetry/Packages/TelemetryCore/Sources/CHIDShim/include"
+export *
+}

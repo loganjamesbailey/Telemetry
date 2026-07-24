@@ -6,6 +6,10 @@ Dieter Rams meets 80s neon.
 Everything Macs Fan Control Pro charges for — and several things no fan app
 ships at any price — free and MIT licensed.
 
+**[⬇ Download Telemetry](https://github.com/loganjamesbailey/Telemetry/releases/latest/download/Telemetry.zip)** —
+unzip, drag to Applications, done. Notarized by Apple; no warnings, no
+command line, no build steps.
+
 ## Features
 
 - **Live menu bar readout** — temperature and fan RPM, one second cadence,

@@ -1,0 +1,4 @@
+module HIDSensors {
+header "HIDSensors-Swift.h"
+export *
+}
