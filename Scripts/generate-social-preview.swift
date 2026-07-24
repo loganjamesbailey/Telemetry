@@ -60,17 +60,26 @@ ctx.drawLinearGradient(
 )
 
 // ── Dial geometry ────────────────────────────────────────────────────────────
-// Golden section of the width; radius chosen so the numeral ring's topmost
-// point stays inside the safe border: centerY + numeralR ≤ H - SAFE.
-let goldenX = CGFloat(W) - CGFloat(W) / phi        // ≈ 489
+// The dial + wordmark panel are centred as one group on the canvas; the
+// golden ratio governs the proportions inside it (type scale, arc width and
+// counterweight at R/φ³, inner ring at R/φ).
 let dialR: CGFloat = 168
 let arcWidth = dialR / phi / phi / phi             // ≈ 40
 let tickInner = dialR + 24
 let numeralR = tickInner + 24 + 22                 // ≈ 238
+let numeralHalf: CGFloat = 18                      // half-width of a numeral label
+let dialToPanelGap: CGFloat = 44
+let panelWidth: CGFloat = 457
+// Group extents: [numeral ring left] … dial … [gap] … [panel]. Centre it,
+// with a measured optical correction: the numerals and arc glow overhang the
+// geometric ring on the left, so the group sits 17px left of the geometric
+// centre to LOOK centred (verified by pixel-extent scan).
+let groupWidth = (numeralR + numeralHalf) + numeralR + (dialToPanelGap - 32) + panelWidth
+let groupLeft = (CGFloat(W) - groupWidth) / 2 - 17
 // Vertical: centre the gauge's visual band (top numeral to bottom numerals)
 // in the canvas — top extent lands ~118px from the top edge, comfortably
 // inside the template's crop band on both sides.
-let center = CGPoint(x: goldenX, y: 274)
+let center = CGPoint(x: groupLeft + numeralR + numeralHalf, y: 274)
 let startAngle = deg(215), endAngle = deg(-35), valueAngle = deg(40)
 
 // Face disc: the instrument's physical face.
@@ -225,8 +234,8 @@ ctx.setFillColor(CGColor(gray: 1, alpha: 0.5))
 ctx.fillEllipse(in: CGRect(x: center.x - 2.5, y: center.y - 2.5, width: 5, height: 5))
 
 // ── Wordmark block on a glass panel ──────────────────────────────────────────
-let textX = center.x + numeralR + 44                       // clear of the numeral ring
-let panel = CGRect(x: textX - 32, y: 186, width: CGFloat(W) - SAFE - (textX - 32), height: 252)
+let textX = center.x + numeralR + dialToPanelGap           // clear of the numeral ring
+let panel = CGRect(x: textX - 32, y: 186, width: panelWidth, height: 252)
 let panelPath = CGPath(roundedRect: panel, cornerWidth: 22, cornerHeight: 22, transform: nil)
 
 // Glass fill + inner top light.
