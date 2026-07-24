@@ -18,14 +18,20 @@
 import AppKit
 
 let W = 1280, H = 640
+// Rendered at 2x (2560x1280) so Retina displays and platform rescaling get a
+// sharp image instead of an upscaled soft one. All layout stays in 1280x640
+// coordinates; the CTM does the scaling.
+let SCALE: CGFloat = 2
 let SAFE: CGFloat = 84  // GitHub template crop margin, with a little slack
 let phi: CGFloat = 1.6180339887
 
 guard let ctx = CGContext(
-    data: nil, width: W, height: H, bitsPerComponent: 8, bytesPerRow: 0,
+    data: nil, width: Int(CGFloat(W) * SCALE), height: Int(CGFloat(H) * SCALE),
+    bitsPerComponent: 8, bytesPerRow: 0,
     space: CGColorSpaceCreateDeviceRGB(),
     bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
 ) else { fatalError("context") }
+ctx.scaleBy(x: SCALE, y: SCALE)
 
 func deg(_ d: CGFloat) -> CGFloat { d * .pi / 180 }
 
@@ -267,11 +273,16 @@ withText {
              color: NSColor(white: 1, alpha: 0.42), kern: 1.5)
 }
 
-let outPath = "docs/social-preview.png"
+// JPEG, not PNG: at 2x the glow gradients push PNG past GitHub's 1 MB
+// social-preview cap, while JPEG q95 lands ~250 KB with no visible loss on
+// this content.
+let outPath = "docs/social-preview.jpg"
 guard let image = ctx.makeImage() else { fatalError("image") }
 let dest = CGImageDestinationCreateWithURL(
-    URL(fileURLWithPath: outPath) as CFURL, "public.png" as CFString, 1, nil
+    URL(fileURLWithPath: outPath) as CFURL, "public.jpeg" as CFString, 1, nil
 )!
-CGImageDestinationAddImage(dest, image, nil)
+CGImageDestinationAddImage(dest, image, [
+    kCGImageDestinationLossyCompressionQuality: 0.95
+] as CFDictionary)
 CGImageDestinationFinalize(dest)
 print("wrote \(outPath)")
